@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.7.1 )
 
-project( jmsd_tp_component )
+project( jmsd_tpc_glut )
 
 
 JMSD_SHOW_PROJECT_GROUP_HEADER()
