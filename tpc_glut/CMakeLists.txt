@@ -26,6 +26,12 @@ elseif ( WIN32 )
 	include_directories( ${JMSD_COMPONENT_SOURCE_ROOT_PATH}/jmsd_adhocs/windows )
 endif()
 
+if( UNIX )
+	include_directories( ${JMSD_COMPONENT_SOURCE_ROOT_PATH}/freeglut/src )
+elseif ( WIN32 )
+	include_directories( ${JMSD_COMPONENT_SOURCE_ROOT_PATH}/freeglut/src )
+endif()
+
 
 ## this project headers and sources enumeration section
 file( GLOB_RECURSE header_and_source_files
@@ -94,8 +100,20 @@ set_target_properties( ${PROJECT_NAME} PROPERTIES SOVERSION 0.1 )
 
 
 ## project target section
-set( ${PROJECT_NAME}_DEPENDENCY_LIBS_VAR
-	"" )
+if( UNIX )
+	set( ${PROJECT_NAME}_DEPENDENCY_LIBS_VAR
+		m
+		GL
+		Xxf86vm
+		Xi
+		X11 )
+elseif( WIN32 )
+	# -lopengl32 -lwinmm -lgdi32 -lm
+	set( ${PROJECT_NAME}_DEPENDENCY_LIBS_VAR
+#		opengl32 )
+		"" )
+endif()
+
 list( REMOVE_DUPLICATES ${PROJECT_NAME}_DEPENDENCY_LIBS_VAR )
 target_link_libraries( ${PROJECT_NAME} ${${PROJECT_NAME}_DEPENDENCY_LIBS_VAR} )
 
